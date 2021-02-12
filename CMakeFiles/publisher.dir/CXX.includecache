@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/kaushal/CLionProjects/dbustest/publisher.cpp
+dbus-1.0/dbus/dbus.h
+-
+iostream
+-
+chrono
+-
+thread
+-
+
