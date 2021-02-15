@@ -1,4 +1,0 @@
-/home/kaushal/CLionProjects/dbustest/CMakeFiles/rebuild_cache.dir
-/home/kaushal/CLionProjects/dbustest/CMakeFiles/edit_cache.dir
-/home/kaushal/CLionProjects/dbustest/CMakeFiles/consumer.dir
-/home/kaushal/CLionProjects/dbustest/CMakeFiles/publisher.dir
