@@ -1,7 +1,7 @@
 #include "dbus-common.h"
 #include <iostream>
 
-const car tesla = {"Tesla Model S", 1729 };
+const car tesla = {"Tesla Model S", 1729 , 105.43};
 
 int main(int argc, char **argv) {
     /* Message to publish. */

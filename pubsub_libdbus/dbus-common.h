@@ -21,6 +21,7 @@
 struct car {
     char    model[20];
     int     cost;
+    double  fuel_capacity;
 };
 
 /*

@@ -96,7 +96,10 @@ int main(int argc, char **argv) {
 
             sample_car = reinterpret_cast<car*>(payload);
 
-            std::cout << "Cost of " << sample_car->model << " is " << sample_car->cost << std::endl;
+            std::cout << "Cost of "
+                        << sample_car->model << " with a fuel capacity of "
+                        << sample_car->fuel_capacity << " is "
+                        << sample_car->cost << std::endl;
         }
         // free the message
         dbus_message_unref(msg);
