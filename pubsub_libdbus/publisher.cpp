@@ -5,7 +5,10 @@ const car tesla = {"Tesla Model S", 1729 };
 
 int main(int argc, char **argv) {
     /* Message to publish. */
-    const char* payload = reinterpret_cast<const char*>(&tesla);
+    const unsigned char* payload = reinterpret_cast<const unsigned char*>(&tesla);
+    const size_t payload_size = sizeof(tesla);
+
+    std::cout << "Size of tesla : " << sizeof(tesla) << std::endl;
 
     /*Structure representing the connection to a bus.*/
     DBusConnection* bus = nullptr;
@@ -56,13 +59,22 @@ int main(int argc, char **argv) {
     }
 
     /* Append arguments to the signal message. */
-    dbus_message_iter_init_append(msg, &args);
-    if (!dbus_message_iter_append_basic(&args,
-                                        DBUS_TYPE_STRING,
-                                        &payload)) {
+//    dbus_message_iter_init_append(msg, &args);
+
+    /* sending array */
+    if (!dbus_message_append_args(msg,
+                                  DBUS_TYPE_ARRAY, DBUS_TYPE_BYTE, &payload, payload_size,
+                                  DBUS_TYPE_INVALID)) {
         std::cerr << "Ran out of memory while constructing args." << std::endl;
         throw std::bad_alloc(); // out of memory
     }
+
+//    if (!dbus_message_iter_append_basic(&args,
+//                                        DBUS_TYPE_STRING,
+//                                        &payload)) {
+//        std::cerr << "Ran out of memory while constructing args." << std::endl;
+//        throw std::bad_alloc(); // out of memory
+//    }
 
     /* If the no-reply flag is set, the D-Bus daemon makes sure that the
      possible reply is discarded and not sent to us. */

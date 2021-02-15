@@ -8,7 +8,8 @@
 car* sample_car;
 
 int main(int argc, char **argv) {
-    char* payload;
+    unsigned char* payload;
+    size_t payload_size;
 
     /* Needed for establishing connections. */
     DBusConnection* bus;
@@ -69,13 +70,26 @@ int main(int argc, char **argv) {
 
         /* Check if the message is a signal from the correct interface and with the correct name. */
         if (dbus_message_is_signal(msg, INTERFACE_NAME, SIGNAL_NAME)) {
-            /* read the parameters */
-            if (!dbus_message_iter_init(msg, &args)){
-                std::cerr << "Message had no parameters\n";
-            } else if (DBUS_TYPE_STRING != dbus_message_iter_get_arg_type(&args)) {
-                std::cerr << "Payload is not a string.\n";
-            } else {
-                dbus_message_iter_get_basic(&args, &payload);
+//            /* read the parameters */
+//            if (!dbus_message_iter_init(msg, &args)){
+//                std::cerr << "Message had no parameters\n";
+//            } else if (DBUS_TYPE_STRING != dbus_message_iter_get_arg_type(&args)) {
+//                std::cerr << "Payload is not a string.\n";
+//            } else {
+//                dbus_message_iter_get_basic(&args, &payload);
+//            }
+
+            if(FALSE == dbus_message_get_args(msg,
+                                              &err,
+                                              DBUS_TYPE_ARRAY,
+                                              DBUS_TYPE_BYTE,
+                                              &payload,
+                                              &payload_size,
+                                              DBUS_TYPE_INVALID)
+                                              && 0 != payload_size) {
+
+                std::cerr << "Receive Data Error: Payload Size = " << payload_size << "\n";
+                return DBUS_HANDLER_RESULT_NOT_YET_HANDLED;
             }
 
             /* Mapping the payload to the car structure. */
